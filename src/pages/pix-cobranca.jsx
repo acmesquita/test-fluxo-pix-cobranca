@@ -2,12 +2,16 @@ import Head from 'next/head'
 import styles from '../styles/PixCobranca.module.css'
 import { useForm } from "react-hook-form";
 import Router from 'next/router';
+import { useContext } from 'react';
+import { AppContext } from '../context/AppContext';
 
 export default function PixCobranca() {
-
+  const { setAmount } = useContext(AppContext)
   const { register, handleSubmit, formState: { errors } } = useForm();
+
   const onSubmit = data => {
-    Router.push(`/show?amount=${data.amount}`)
+    setAmount(data.amount)
+    Router.push(`/show`)
   };
 
   return (
