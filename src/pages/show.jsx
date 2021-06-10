@@ -1,29 +1,11 @@
 import Head from 'next/head'
 import { useRouter} from 'next/router'
 import QRious from 'qrious'
-import { useEffect, useState } from 'react'
 import styles from '../styles/Show.module.css'
 
-export default function Show() {
+export default function Show({ imgQRcode }) {
   const router = useRouter()
   const amount = router.query.amount
-
-  const [imgQRcode, setImgQRcode] = useState()
-
-  useEffect(()=> {
-    const qr = document.querySelector('#qr')
-    new QRious({
-      element: qr,
-      value: `https://teste-fluxo-pix-cobranca.vercel.app/show?amount=${amount}`,
-      size: '250',
-      backgroundAlpha: 0.8,
-      foreground: 'green',
-      foregroundAlpha: 0.8,
-      level: 'H',
-      padding: 25,
-    })
-    setImgQRcode(qr.src)
-  }, [])
 
   return (
     <div className={styles.container}>
@@ -40,7 +22,7 @@ export default function Show() {
           Pix Cobrança
         </h1>
 
-        <img id="qr" />
+        <img src={imgQRcode} />
 
         <a href={`whatsapp://send?text=https://teste-fluxo-pix-cobranca.vercel.app/show?amount=${amount}`} data-action="share/whatsapp/share">Whatsapp</a>
       </main>
@@ -50,4 +32,25 @@ export default function Show() {
       </footer>
     </div>
   )
+}
+
+export async function getServerSideProps(context) {
+  const amount = context.query.amount
+  const qr = document.createElement('img')
+  new QRious({
+    element: qr,
+    value: `https://teste-fluxo-pix-cobranca.vercel.app/show?amount=${amount}`,
+    size: '250',
+    backgroundAlpha: 0.8,
+    foreground: 'green',
+    foregroundAlpha: 0.8,
+    level: 'H',
+    padding: 25,
+  })
+
+  return {
+    props: {
+      imgQRcode: qr.src
+    },
+  }
 }
