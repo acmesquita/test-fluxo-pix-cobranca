@@ -14,7 +14,7 @@ export default function Show() {
     const qr = document.querySelector('#qr')
     new QRious({
       element: qr,
-      value: `http://192.168.15.6:3000/show?amount=${amount}`,
+      value: `https://teste-fluxo-pix-cobranca.vercel.app/show?amount=${amount}`,
       size: '250',
       backgroundAlpha: 0.8,
       foreground: 'green',
@@ -42,7 +42,7 @@ export default function Show() {
 
         <img id="qr" />
 
-        <a href={`whatsapp://send?text=http://192.168.15.6:3000/show?amount=${amount}`} data-action="share/whatsapp/share">Whatsapp</a>
+        <a href={`whatsapp://send?text=https://teste-fluxo-pix-cobranca.vercel.app/show?amount=${amount}`} data-action="share/whatsapp/share">Whatsapp</a>
       </main>
 
       <footer className={styles.footer}>
