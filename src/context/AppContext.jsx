@@ -1,11 +1,18 @@
 import { createContext, useEffect, useState } from "react";
 import QRious from 'qrious'
+import { useRouter } from "next/router";
 
 export const AppContext = createContext({})
 
 export function AppProvider({ children }) {
-  const [amount, setAmount] = useState(0)
+  const router = useRouter()
+  console.log(router.query.amount)
+  const [amount, setAmount] = useState(router.query.amount || 0)
   const [imgQRcode, setImgQRcode] = useState()
+
+  useEffect(()=> {
+    setAmount(router.query.amount)
+  }, [router.query.amount])
 
   useEffect(()=> {
     const qr = document.createElement('img')

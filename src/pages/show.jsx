@@ -23,7 +23,7 @@ export default function Show() {
 
         <img src={imgQRcode}/>
 
-        <a href={`whatsapp://send?text=https://teste-fluxo-pix-cobranca.vercel.app/show`} data-action="share/whatsapp/share">Whatsapp</a>
+        <a href={`whatsapp://send?text=https://teste-fluxo-pix-cobranca.vercel.app/show?amount=${amount}`} data-action="share/whatsapp/share">Whatsapp</a>
       </main>
 
       <footer className={styles.footer}>
